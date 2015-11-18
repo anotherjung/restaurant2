@@ -90,6 +90,10 @@ module.exports = function(app) {
 		orders.menuthisorder(req, res)
 	})
 
+	app.post('/deleteItemThisOrder', function (req, res) {
+		orders.deleteitem_thisorder(req, res)
+	})
+
 	app.get('/getCustomers', function (req, res) {
 		customers.getcustomers(req,res)
 	})

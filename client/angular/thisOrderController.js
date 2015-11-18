@@ -15,10 +15,18 @@ myApp.controller('thisOrderController', function ($scope, $routeParams, orderFac
 		orderFactory.editThisOrder(oneOrder);
 	}
 
-
 	$scope.menuThisOrder  = function(oneOrder) {
 		console.log('con editOrder', oneOrder);
 		orderFactory.menuThisOrder(oneOrder);
+	}
+
+	$scope.itemDelete = function(order, index){
+		console.log(order);
+		console.log(index);
+		orderFactory.deleteItemThisOrder(order, index, function(data){
+			console.log(data);
+			$scope.oneOrder = data;
+		});
 	}
 
 //end controller

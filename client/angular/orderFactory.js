@@ -32,18 +32,29 @@ myApp.factory('orderFactory', function ($http, $route, $location) {
 
 	factory.editThisOrder = function(oneOrder, callback) {
 		$http.post('/editThisOrder', oneOrder).success(function(output) {
-			console.log('baby fac editThisOrder', oneOrder)
+			console.log('baby fac editThisOrder', output)
 		})
 		$location.path('displayOrders');
 	}
 
 	factory.menuThisOrder = function(oneOrder, callback) {
 		$http.post('/menuThisOrder', oneOrder).success(function(output) {
-			console.log('baby fac editThisOrder', oneOrder)
+			console.log('baby fac editThisOrder', output)
 		})
 		$location.path('displayOrders');
 	}
 
+	factory.deleteItemThisOrder = function(order, index, callback) {
+		console.log(order);
+		console.log(index);
+		data = {order: order, index: index};
+		$http.post('/deleteItemThisOrder', data).success(function(output) {
+			console.log('delete item ThisOrder', output)
+			order = output;
+			callback(order);
+		})
+		// $location.path('displayOrders');
+	}
 
 
 	return factory

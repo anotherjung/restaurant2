@@ -32,11 +32,6 @@ module.exports = {
 	},
 
 	addorder: function(req, res) {
-
-
-
-
-
 		var cc = new Order(
 			{name:req.body.name, 
 				type:req.body.type, 
@@ -65,7 +60,10 @@ module.exports = {
 	},
 
 	getthisorder: function(req, res) {
-		Order.findOne({_id:req.query._id}, function(err, output) {
+		Order.findOne({_id:req.query._id})
+		 .populate('menu')
+		 .populate('_customer')
+		 .exec(function(err, output) {
 			if(err) {
 				console.log('err con getthisorder', err);
 			} else {
@@ -102,6 +100,23 @@ module.exports = {
 			}
 		})
 
+	},
+
+	deleteitem_thisorder: function(req, res) {
+		console.log('delete items', req.body)
+		Order.findOne({_id:req.body.order._id})
+		.populate('menu')
+		.populate('_customer')
+		.exec(function(err, order) {
+			if(err) {
+				console.log('err con getthisorder', err);
+			} else {
+				console.log('baby con getthisorder', order);
+				order.menu.splice(req.body.index,1);
+				order.save();
+				res.json(order);
+			}
+		})
 	}
 
 
