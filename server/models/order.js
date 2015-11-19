@@ -10,9 +10,11 @@ var OrderSchema = new mongoose.Schema({
 	placed: Boolean,
 	paid: Boolean,
 	cooked: Boolean,
-	total: String,
+	total: Number,
+	comment: String,
 	created_date: {type: Date, default: new Date},
 	menu: [{type: Schema.Types.ObjectId, ref:'Menu'}],
+	// items: [{{type: Schema.Types.ObjectId, ref:'Menu'}, qty: Number}],
 	_customer: {type: Schema.ObjectId, ref:'Customer'}
 });
 

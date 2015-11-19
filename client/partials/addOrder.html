@@ -9,6 +9,37 @@
 <div class="row">
 	<div class="col s12 m12 l12">
 		<h5 class="center-align">Create New Orders</h5>
+		<div id='menu'>
+			<h3>Menu</h3>
+			  	<table>
+			    	<tr>
+			    		<th>Item</th>
+			    		<th>Price</th>
+			    		<th>Add</th>
+			    	</tr>
+						<tr ng-repeat="item in menus" value="{{item}}">
+							<td>{{item.name}}</td>
+							<td>{{item.price}}</td>
+							<td><button ng-click='itemOrder(item)'>+</button></td>
+						</tr>
+					</table>
+			</div>
+			<div id='order_items'>
+				<h3>Order</h3>
+					<table>
+			    	<tr>
+			    		<th>Item</th>
+			    		<th>Price</th>
+			    		<th>Delete</th>
+			    	</tr>
+						<tr ng-repeat="item in itemsOrder track by $index" value="{{item}}">
+							<td>{{item.name}}</td>
+							<td>{{item.price}}</td>
+							<td><button ng-click='removeOrder($index)'>-</button></td>
+						</tr>
+					</table>
+					<h4>Total: {{newOrder.total}}</h4>
+			</div>
 		<form class="form">
 			    <select class="browser-default" ng-model='newOrder._customer'>
 			    	<option value="" disabled selected>Select Customer</option>
@@ -22,24 +53,37 @@
 
 			   	<label for="group1">Type:</label>
 			    <!--2b declare ng-model-->
-			    <input id="group1" class='form-control' type='text' name='group' ng-model='newOrder.type' required>	
+			    <select class='browser-default' ng-model='newOrder.type'>
+			    	<option value='Dine-In'>Dine-In</option>
+			    	<option value='Take-Out'>Take-Out</option>
+			    </select>
 
-			    <select class="browser-default" ng-model='newOrder.menu'>
+			    <textarea ng-model='newOrder.comment'>
+			    </textarea>
+<!-- 
+			    <ul>
+			    	<li ng-repeat='item in itemsOrder'>
+			    		{{item.name}}
+			    	</li>
+			    </ul> -->
+
+			
+<!-- 			    <select class="browser-default" ng-model='newOrder.item'>
 			    	<option value="" disabled selected>Select Menu</option>
-			    	<option ng-repeat="menu in menus" value="{{menu._id}}">{{menu.name}}</option>
-			    </select> 
+			    	<option ng-repeat="item in menus" value="{{item}}">{{item.name}}</option>
+			    </select>  -->
 
-			    <select class="browser-default" ng-model='newOrder.qty'>
+		<!-- 	    <select class="browser-default" ng-model='newOrder.qty'>
 			    	<option value="" disabled selected>Select Qty</option>
 		    	    <option value="1">1</option>
   					<option value="2">2</option> 
   					<option value="3">3</option>
   					<option value="4">4</option>
   					<option value="5">5</option>
-			    </select> 			    
+			    </select> 		 -->	    
 
 
-			    <input class="waves-effect waves-light btn blue" type="submit" value="Submit" ng-click='addOrder()'>
+			    <input class="waves-effect waves-light btn blue" type="submit" value="Submit" ng-click='addOrder(newOrder, itemsOrder)'>
 
 		</form>
 	</div>
@@ -49,13 +93,14 @@
 <div class="col s12 m6 l4" ng-repeat="order in orders | orderBy:'-created_date'">
 	<div class="card grey darken-4">
 		<div class="card-content white-text">
+		{{order.created_date | date:'MMM d, yyyy - h:mm a'}}
 		<p>{{order._customer.name}}</p>
 		<p>{{order.name}}</p>
 		<p>{{order.type}}</p>
 		<div ng-repeat='menu in order.menu'>
 			{{menu.name}} : {{menu.qty}}
 		</div>
-		{{order.created_date | date:'MMM d, yyyy - h:mm a'}}
+		<p>Total: ${{order.total}}</p>
 		</div>
 		<div class="card-action center">
 			<span><a class="btn blue" href="#/thisOrder/{{order._id}}"><i class=" material-icons">mode_edit</i></a></span>

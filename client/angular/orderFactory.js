@@ -11,7 +11,7 @@ myApp.factory('orderFactory', function ($http, $route, $location) {
 
 	factory.addOrder = function (info) {
 		$http.post('/addOrder', info).success(function(output) {
-			console.log('baby fac addorder', output)
+			// console.log('baby fac addorder', output)
 		})
 		$route.reload();
 	}

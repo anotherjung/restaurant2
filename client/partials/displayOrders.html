@@ -5,11 +5,15 @@
 	<div class="card grey darken-4">
 		<div class="card-content white-text">
 		<p>{{order.name}}</p>
-		<p>{{order.type}}</p>
-		<p><div ng-repeat='menu in order.menu'>
+		<p>{{order.type}}, {{order.created_date | date:'MMM d, yyyy - h:mm a'}}</p>
+		<p>
+			<div ng-repeat='menu in order.menu'>
 			Food Order: {{menu.name}} : {{menu.group}} : {{menu.orders}} : {{menu.like}}
-		</div></p>
-		<p>{{order.created_date | date:'MMM d, yyyy - h:mm a'}}</p>
+			</div>
+		</p>
+		<p><i>{{order.comment}}</i><p>
+		<p><strong>Total: ${{order.total}}</strong></p>
+		<p><strong>(+ tax): ${{order.total * 1.0825 | number:2}}</strong></p>
 		</div>
 		<div class="card-action center">
 			<span><a class="btn blue" href="#/thisOrder/{{order._id}}"><i class=" material-icons">mode_edit</i></a></span>

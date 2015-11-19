@@ -32,14 +32,18 @@ module.exports = {
 	},
 
 	addorder: function(req, res) {
+		// console.log(req.body.item._id);
 		var cc = new Order(
 			{name:req.body.name, 
 				type:req.body.type, 
 				total:req.body.total,
-				menu: req.body.menu, 
-				_customer: req.body._customer, 
-				created:Date.now()}
-			);
+				menu: req.body.menu,
+				_customer: req.body._customer,
+				comment: req.body.comment,
+				// created:Date.now()}
+			});
+		// cc.menu.push(req.body.item); 
+		console.log(cc);
 		cc.save(function(err) {
 			if(err) {
 				console.log('err con addorder', err);
@@ -94,6 +98,8 @@ module.exports = {
 			} else {
 				//res.json(output);
 				order.menu.push(req.body.item);
+				order.total += req.body.item.price;
+				console.log(order.total);
 				order.save();
 				res.json(order);
 				console.log('con editthisorder', order);
@@ -112,6 +118,7 @@ module.exports = {
 				console.log('err con getthisorder', err);
 			} else {
 				console.log('baby con getthisorder', order);
+				order.total -= order.menu[req.body.index].price;				
 				order.menu.splice(req.body.index,1);
 				order.save();
 				res.json(order);

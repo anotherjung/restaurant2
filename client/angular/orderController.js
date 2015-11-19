@@ -1,5 +1,8 @@
 myApp.controller('orderController', function ($scope, orderFactory, menuFactory, customerFactory) {
 	$scope.orders = [];
+	$scope.itemsOrder = [];
+	$scope.newOrder = {total: 0};
+
 	orderFactory.getOrders(function (data) {
 		$scope.orders = data;
 	})
@@ -14,8 +17,26 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 		$scope.customers = data;
 	})
 
-	$scope.addOrder = function (newOrder) {
+	$scope.itemOrder = function(item){
+		$scope.itemsOrder.push(item);
+		$scope.newOrder.total += item.price;
+	}
+
+	$scope.removeOrder = function(index){
+		$scope.newOrder.total -= $scope.itemsOrder[index].price;
+		$scope.itemsOrder.splice(index,1);
+	}
+
+	$scope.addOrder = function (newOrder, items) {
+		newOrder.menu = items;
+		console.log('here new order');
+		console.log(newOrder);
 		orderFactory.addOrder($scope.newOrder);
+
+		orderFactory.getOrders(function (data) {
+		$scope.orders = data;
+	})
+
 	}
 
 	$scope.deleteOrder = function (order) {
