@@ -45,7 +45,7 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 		newOrder.menu = items;
 		console.log('here new order');
 		console.log(newOrder);
-		orderFactory.addOrder($scope.newOrder);
+		orderFactory.addOrder(newOrder);
 
 		orderFactory.getOrders_unpaid(function (data) {
 		$scope.orders = data;

@@ -10,7 +10,7 @@
 		<div class="card-content white-text">
 			status: {{order.status}}
 
-			<span ng-show="order.status == 'ready' " ><a href ng-click='orderServed(order)'><i class=" material-icons">input</i></a></span>
+			<span ng-show="order.status == 'ready' " ><a href ng-click='orderServed(order)' class="btn grey" ><i class=" material-icons">input</i></a></span>
 
 			<span ng-show="order.status == 'served' "><a class="btn grey" href="#/orderReceipt/{{order._id}}"><i class=" material-icons">receipt</i></a></span>
 		<!-- 	<span ng-show="order.paid == false">Unpaid</span> -->
