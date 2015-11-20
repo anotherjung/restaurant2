@@ -77,6 +77,7 @@ module.exports = {
 				type:req.body.type, 
 				total:req.body.total,
 				menu: req.body.menu,
+				qty: req.body.qty,
 				_customer: req.body._customer,
 				comment: req.body.comment,
 				number: req.body.number,

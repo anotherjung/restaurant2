@@ -1,4 +1,22 @@
 <!--1 add ng-controller directive to div container -->
+<style>
+#form_order{
+	/*position:fixed;*/
+}
+#tableOrder{
+
+}
+input[type="radio"]{
+	margin: 120px;
+}
+select {
+	color: black;
+	width: 200px;
+}
+.btn_text{
+	color:black;
+}
+</style>
 <div class="container" ng-controller="orderController">
 <!-- 	{{orders}}
 	<hr>
@@ -6,8 +24,7 @@
  -->
 
 
-<div class="row">
-	<div class="col s12 m12 l12">
+
 		<h5 class="center-align">Create New Orders</h5>
 		<div id='menu'>
 			<h3>Menu</h3>
@@ -17,117 +34,73 @@
 			    		<th>Price</th>
 			    		<th>Add</th>
 			    	</tr>
-						<tr ng-repeat="item in menus" value="{{item}}">
-							<td>{{item.name}}</td>
-							<td>{{item.price}}</td>
-							<td><button ng-click='itemOrder(item)'>+</button></td>
-						</tr>
-					</table>
+					<tr ng-repeat="item in menus" value="{{item}}">
+						<td>{{item.name}}</td>
+						<td>{{item.price}}</td>
+						<td><button ng-click='itemOrder(item)'>+</button></td>
+					</tr>
+				</table>
 			</div>
-			<div id='order_items'>
-				<h3>Order</h3>
-					<table>
-			    	<tr>
-			    		<th>Item</th>
-			    		<th>Price</th>
-			    		<th>Delete</th>
-			    	</tr>
-						<tr ng-repeat="item in itemsOrder track by $index" value="{{item}}">
-							<td>{{item.name}}</td>
-							<td>{{item.price}}</td>
-							<td><button ng-click='removeOrder($index)'>-</button></td>
-						</tr>
-					</table>
-					<h4>Total ($): {{newOrder.total}}</h4>
-			</div>
-			<br>
-		<form class="form">
-	
-			    <!--2b declare ng-model-->
-			    <input type='radio' name='type' ng-model="$scope.newOrder.stupid" value='Dine-In' id='dine-in'><label for='dine-in'>Dine-In</label>
-			    <br>
-			    <input type='radio' name='type' ng-model="$scope.newOrder.stupid"  value='Take-Out' id='take-out'><label for='take-out'>Take-Out</label>
+		
+			<div id='fixed_order' class="card grey darken-4" >
+				<div class="card-content white-text">
+				<form class="form" id='form_order'>
 
+					<label for="name1">Name:</label>
+					    <!--2b declare ng-model-->
+				    <input id="name1" class='form-control' type='text' name='name' ng-model='newOrder.name' required>
+					
+					<input type='radio' name='type' ng-model="newOrder.type" value="Dine-In" id='dine-in'><label for='dine-in'>Dine-In</label>
+					<span id='span_radio'>   </span>
+				    <input type='radio' name='type' ng-model="newOrder.type"  value="Take-Out" id='take-out'><label for='take-out'>Take-Out</label>
 
-<!-- 					<select class='browser-default' ng-model='newOrder.type'>
-			    	<option value='Dine-In'>Dine-In</option>
-			    	<option value='Take-Out'>Take-Out</option>
-			    </select> -->
+		   			<div ng-if="newOrder.type=='Dine-In'">
+					    <label for="name1">Table:</label>
+					    <select class='browser-default' ng-model='newOrder.number'>
+					    	<option ng-repeat='number in numbers' value="{{number}}">{{number}}</option>
+					    </select>
+					</div>
+				    <select class="browser-default" ng-model='newOrder._customer'>
+					    	<option value="" disabled selected>Select Customer</option>
+					    	<option ng-repeat="customer in customers" value="{{customer._id}}">{{customer.name}}</option>
+					</select> 			
 
-			    <div ng-if="newOrder.type='Dine-in'">
-				    <label for="name1">Table:</label>
-				    <select class='browser-default' ng-model='newOrder.number'>
-				    	<option ng-repeat='number in numbers' value="{{number}}">{{number}}</option>
-				    </select>
-			  	</div>
-
-
-
-
-			    <select class="browser-default" ng-model='newOrder._customer'>
-			    	<option value="" disabled selected>Select Customer</option>
-			    	<option ng-repeat="customer in customers" value="{{customer._id}}">{{customer.name}}</option>
-			    </select> 			
-
-
-				<label for="name1">Name:</label>
-			    <!--2b declare ng-model-->
-			    <input id="name1" class='form-control' type='text' name='name' ng-model='newOrder.name' required>
-
-
-
-
-			    <textarea ng-model='newOrder.comment'>
-			    </textarea>
-<!-- 
-			    <ul>
-			    	<li ng-repeat='item in itemsOrder'>
-			    		{{item.name}}
-			    	</li>
-			    </ul> -->
 
 			
-<!-- 			    <select class="browser-default" ng-model='newOrder.item'>
-			    	<option value="" disabled selected>Select Menu</option>
-			    	<option ng-repeat="item in menus" value="{{item}}">{{item.name}}</option>
-			    </select>  -->
-
-		<!-- 	    <select class="browser-default" ng-model='newOrder.qty'>
-			    	<option value="" disabled selected>Select Qty</option>
-		    	    <option value="1">1</option>
-  					<option value="2">2</option> 
-  					<option value="3">3</option>
-  					<option value="4">4</option>
-  					<option value="5">5</option>
-			    </select> 		 -->	    
 
 
-			    <input class="waves-effect waves-light btn blue" type="submit" value="Submit" ng-click='addOrder(newOrder, itemsOrder)'>
+			
+					<div id='order_items'>
+						<h3>Order</h3>
+							<table id='tableOrder'>
+					    	<tr>
+					    		<th>Item</th>
+					    		<th>Price</th>
+					    		<th>Qty</th>
+					    		<th>Action</th>
+					    	</tr>
+								<tr ng-repeat="item in itemsOrder track by $index" value="{{item}}">
+									<td>{{item.name}}</td>
+									<td>{{item.price}}</td>
+									<td>{{qtyOrder[$index]}}</td>
+									<td><button ng-click='itemIncr($index)'><span class='btn_text'>+</span></button>
+										<button ng-click='itemDecr($index)'><span class='btn_text'>-</span></button>
+										<button ng-click='itemRemove($index)'><span class='btn_text'>X</span></button>
+									</td>
+								</tr>
+							</table>
 
-		</form>
-	</div>
-</div>
+						    <textarea ng-model='newOrder.comment'>
+						    </textarea>
+							<h4>Total ($): {{newOrder.total}}</h4>
+					</div>
+		    <!--2b declare ng-model-->
+					    <input class="waves-effect waves-light btn blue" type="submit" value="Submit" ng-click='addOrder(newOrder, itemsOrder)'>
+				</div>
+				</form>
+			</div>
+	
 
-<div class="row">
-<div class="col s12 m6 l4" ng-repeat="order in orders | orderBy:'-created_date'">
-	<div class="card grey darken-4">
-		<div class="card-content white-text">
-		{{order.created_date | date:'MMM d, yyyy - h:mm a'}}
-		<p>{{order._customer.name}}</p>
-		<p>{{order.name}}</p>
-		<p>{{order.type}}</p>
-		<div ng-repeat='menu in order.menu'>
-			{{menu.name}} : {{menu.qty}}
-		</div>
-		<p>Total: ${{order.total}}</p>
-		</div>
-		<div class="card-action center">
-			<span><a class="btn blue" href="#/thisOrder/{{order._id}}"><i class=" material-icons">mode_edit</i></a></span>
-			<span><input class="btn red material-icons prefix" type="submit" value="delete" ng-click="deleteOrder(order)"></span>
-		</div>
-	</div>
-</div>
-</div>
 
 
 <!--ends dive container -->	

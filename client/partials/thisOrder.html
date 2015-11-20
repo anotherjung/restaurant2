@@ -1,5 +1,4 @@
 <div class="container" ng-controller='thisOrderController'>
-	{{oneOrder}}
 	<hr>
 
 
@@ -61,19 +60,10 @@
 		<p>{{oneOrder.type}}</p>
 
 		<div ng-repeat='item in oneOrder.menu'>
-			<p>{{item.name}} : {{item.qty}} </p>
+			<p>{{item.name}} : {{oneOrder.qty[$index]}} </p>
 		</div>
 		<p>{{order.created_date | date:'MMM d, yyyy - h:mm a'}}</p>
 		</div>
-
-
-		<div class="card-action center">
-			<span><a class="btn blue" href="#/thisOrder/{{oneOrder._id}}"><i class=" material-icons">mode_edit</i></a></span>
-			<span><input class="btn red" type="submit" value="delete" ng-click="deleteOrder(order)"></span>
-		</div>
-
-
-
 
 	</div>
 </div>

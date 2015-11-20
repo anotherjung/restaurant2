@@ -21,7 +21,7 @@ module.exports = {
 	addmenu: function(req, res) { 
 		//console.log('con', req.body);
 		var cc = new Menu( 
-			{name:req.body.name, ingredient: req.body.ingredient, group:req.body.group, imageurl:req.body.imageurl, price:req.body.price, created:Date.now()}
+			{name:req.body.name, ingredients: req.body.ingredients, group:req.body.group, imageurl:req.body.imageurl, price:req.body.price, created:Date.now()}
 			);
 		cc.save(function(err) {
 			if(err) {

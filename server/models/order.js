@@ -16,6 +16,7 @@ var OrderSchema = new mongoose.Schema({
 	comment: String,
 	created_date: {type: Date, default: new Date},
 	menu: [{type: Schema.Types.ObjectId, ref:'Menu'}],
+	qty: [],
 	// items: [{{type: Schema.Types.ObjectId, ref:'Menu'}, qty: Number}],
 	_customer: {type: Schema.ObjectId, ref:'Customer'}
 });
