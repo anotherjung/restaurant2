@@ -1,11 +1,25 @@
-myApp.controller('orderController', function ($scope, orderFactory, menuFactory, customerFactory) {
+myApp.controller('orderController', function ($scope, orderFactory, menuFactory, customerFactory, $routeParams) {
 	$scope.orders = [];
 	$scope.itemsOrder = [];
 	$scope.newOrder = {total: 0};
+	$scope.numbers = []
 
-	orderFactory.getOrders(function (data) {
-		$scope.orders = data;
-	})
+	for(var i = 0; i<99; i++){
+		$scope.numbers.push(i);
+	}
+
+	console.log("staff");
+	console.log($routeParams);
+
+	if ($routeParams.person){
+		orderFactory.getOrders_pending(function (data) {
+			$scope.orders = data;
+		})
+	} else{
+		orderFactory.getOrders_unpaid(function (data) {
+			$scope.orders = data;
+		})
+	}
 
 	$scope.menus = [];
 	menuFactory.getMenus(function (data) {
@@ -33,10 +47,27 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 		console.log(newOrder);
 		orderFactory.addOrder($scope.newOrder);
 
-		orderFactory.getOrders(function (data) {
+		orderFactory.getOrders_unpaid(function (data) {
 		$scope.orders = data;
-	})
+		})
+	}
 
+	$scope.orderReady = function(order){
+		console.log('order ready');
+		orderFactory.orderReady(order);
+
+		orderFactory.getOrders_pending(function (data) {
+			$scope.orders = data;
+		})
+	}
+
+	$scope.orderServed = function(order){
+		console.log('order ready');
+		orderFactory.orderServed(order);
+		
+		orderFactory.getOrders_unpaid(function (data) {
+			$scope.orders = data;
+		})
 	}
 
 	$scope.deleteOrder = function (order) {

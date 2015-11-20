@@ -27,8 +27,16 @@ myApp.config(function ($routeProvider) {
 		templateUrl: 'partials/thisOrder.html'
 	})
 
+	.when('/orderReceipt/:id',{
+		templateUrl: 'partials/receiptOrder.html'
+	})
+
 	.when('/displayOrders',{
 		templateUrl: 'partials/displayOrders.html'
+	})
+
+	.when('/displayOrders/:person',{
+		templateUrl: 'partials/ordersChef.html'
 	})
 
 	.when('/addCustomer',{

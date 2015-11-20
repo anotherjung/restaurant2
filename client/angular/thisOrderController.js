@@ -1,4 +1,4 @@
-myApp.controller('thisOrderController', function ($scope, $routeParams, orderFactory, menuFactory) {
+myApp.controller('thisOrderController', function ($scope, $routeParams, $location, orderFactory, menuFactory) {
 	var thisOrder = $routeParams.id;
 	console.log($routeParams.id);
 
@@ -27,6 +27,13 @@ myApp.controller('thisOrderController', function ($scope, $routeParams, orderFac
 			console.log(data);
 			$scope.oneOrder = data;
 		});
+	}
+
+
+	$scope.orderPaid  = function(oneOrder) {
+		console.log('con editOrder', oneOrder);
+		orderFactory.orderPaid(oneOrder);
+		$location.path('/displayOrders');
 	}
 
 //end controller

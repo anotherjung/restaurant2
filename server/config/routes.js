@@ -66,8 +66,16 @@ module.exports = function(app) {
 		menus.editthismenu(req,res)
 	})
 
-	app.get('/getOrders', function (req, res) {
-		orders.getorders(req, res)
+	app.get('/getOrders/pending', function (req, res) {
+		orders.getorders_pending(req, res)
+	})
+
+	app.get('/getOrders/unpaid', function (req, res) {
+		orders.getorders_unpaid(req, res)
+	})
+
+	app.get('/getThisOrder', function (req, res) {
+		orders.getthisorder(req, res)
 	})
 
 	app.post('/addOrder', function (req, res) {
@@ -76,10 +84,6 @@ module.exports = function(app) {
 
 	app.post('/deleteOrder', function (req, res) {
 		orders.deleteorder(req, res)
-	})
-
-	app.get('/getThisOrder', function (req, res) {
-		orders.getthisorder(req, res)
 	})
 
 	app.post('/editThisOrder', function (req, res) {
@@ -92,6 +96,18 @@ module.exports = function(app) {
 
 	app.post('/deleteItemThisOrder', function (req, res) {
 		orders.deleteitem_thisorder(req, res)
+	})
+
+	app.post('/readyOrder', function(req,res){
+		orders.readyOrder(req,res)
+	})
+
+	app.post('/servedOrder', function(req,res){
+		orders.servedOrder(req,res)
+	})
+
+	app.post('/paidOrder', function(req,res){
+		orders.paidOrder(req,res)
 	})
 
 	app.get('/getCustomers', function (req, res) {

@@ -2,10 +2,24 @@ myApp.factory('orderFactory', function ($http, $route, $location) {
 	var orders = [];
 	var factory = {};
 
-	factory.getOrders = function (callback) {
-		$http.get('/getOrders').success(function(output) {
+	factory.getOrders_unpaid = function (callback) {
+		$http.get('/getOrders/unpaid').success(function(output) {
 			callback(output);
 			console.log('fac getOrders', output);
+		})
+	}
+
+	factory.getOrders_pending = function (callback) {
+		$http.get('/getOrders/pending').success(function(output) {
+			callback(output);
+			console.log('fac getOrders', output);
+		})
+	}
+
+	factory.getThisOrder = function (thisOrder, callback) {
+		console.log('',thisOrder)
+		$http({url:'/getThisOrder', method:'GET', params:{_id:thisOrder}}).success(function (output) {
+			callback(output);
 		})
 	}
 
@@ -21,13 +35,6 @@ myApp.factory('orderFactory', function ($http, $route, $location) {
 			callback(output);
 		}) 
 		$route.reload();
-	}
-
-	factory.getThisOrder = function (thisOrder, callback) {
-		console.log('',thisOrder)
-		$http({url:'/getThisOrder', method:'GET', params:{_id:thisOrder}}).success(function (output) {
-			callback(output);
-		})
 	}
 
 	factory.editThisOrder = function(oneOrder, callback) {
@@ -54,6 +61,24 @@ myApp.factory('orderFactory', function ($http, $route, $location) {
 			callback(order);
 		})
 		// $location.path('displayOrders');
+	}
+
+	factory.orderReady = function(order){
+		$http.post('/readyOrder', order).success(function(output){
+
+		})
+	}
+
+	factory.orderServed = function(order){
+		$http.post('/servedOrder', order).success(function(output){
+
+		})
+	}
+
+	factory.orderPaid = function(order){
+		$http.post('/paidOrder', order).success(function(output){
+
+		})
 	}
 
 

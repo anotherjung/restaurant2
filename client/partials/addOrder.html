@@ -38,9 +38,32 @@
 							<td><button ng-click='removeOrder($index)'>-</button></td>
 						</tr>
 					</table>
-					<h4>Total: {{newOrder.total}}</h4>
+					<h4>Total ($): {{newOrder.total}}</h4>
 			</div>
+			<br>
 		<form class="form">
+	
+			    <!--2b declare ng-model-->
+			    <input type='radio' name='type' ng-model='newOrder.type' value='Dine-In' id='dine1'><label for='dine1'>Dine-In</label>
+			    <br>
+			    <input type='radio' name='type' ng-model='newOrder.type'  value='Take-Out' id='take2'><label for='take2'>Take-Out</label>
+
+
+<!-- 					<select class='browser-default' ng-model='newOrder.type'>
+			    	<option value='Dine-In'>Dine-In</option>
+			    	<option value='Take-Out'>Take-Out</option>
+			    </select> -->
+
+			    <div ng-if="newOrder.type='Dine-in'">
+				    <label for="name1">Table:</label>
+				    <select class='browser-default' ng-model='newOrder.number'>
+				    	<option ng-repeat='number in numbers' value="{{number}}">{{number}}</option>
+				    </select>
+			  	</div>
+
+
+
+
 			    <select class="browser-default" ng-model='newOrder._customer'>
 			    	<option value="" disabled selected>Select Customer</option>
 			    	<option ng-repeat="customer in customers" value="{{customer._id}}">{{customer.name}}</option>
@@ -51,12 +74,8 @@
 			    <!--2b declare ng-model-->
 			    <input id="name1" class='form-control' type='text' name='name' ng-model='newOrder.name' required>
 
-			   	<label for="group1">Type:</label>
-			    <!--2b declare ng-model-->
-			    <select class='browser-default' ng-model='newOrder.type'>
-			    	<option value='Dine-In'>Dine-In</option>
-			    	<option value='Take-Out'>Take-Out</option>
-			    </select>
+
+
 
 			    <textarea ng-model='newOrder.comment'>
 			    </textarea>

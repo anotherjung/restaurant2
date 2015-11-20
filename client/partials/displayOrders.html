@@ -6,16 +6,17 @@
 		<div class="card-content white-text">
 		<p>{{order.name}}</p>
 		<p>{{order.type}}, {{order.created_date | date:'MMM d, yyyy - h:mm a'}}</p>
-		<p>
-			<div ng-repeat='menu in order.menu'>
-			Food Order: {{menu.name}} : {{menu.group}} : {{menu.orders}} : {{menu.like}}
-			</div>
-		</p>
-		<p><i>{{order.comment}}</i><p>
-		<p><strong>Total: ${{order.total}}</strong></p>
-		<p><strong>(+ tax): ${{order.total * 1.0825 | number:2}}</strong></p>
+		</div>
+		<div class="card-content white-text">
+			status: {{order.status}}
+
+			<span ng-show="order.status == 'ready' " ><a href ng-click='orderServed(order)'><i class=" material-icons">input</i></a></span>
+
+			<span ng-show="order.status == 'served' "><a class="btn grey" href="#/orderReceipt/{{order._id}}"><i class=" material-icons">receipt</i></a></span>
+		<!-- 	<span ng-show="order.paid == false">Unpaid</span> -->
 		</div>
 		<div class="card-action center">
+		
 			<span><a class="btn blue" href="#/thisOrder/{{order._id}}"><i class=" material-icons">mode_edit</i></a></span>
 			<span><input class="btn red material-icons prefix" type="submit" value="delete" ng-click="deleteOrder(order)"></span>
 		</div>

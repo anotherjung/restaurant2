@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
 
 module.exports = {
-	getorders: function(req, res) {
+	getorders_pending: function(req, res) {
 		//test hard-code data
 		//res.json([{name: "batman", number:11}, {name: "superman", number:22}])	
 
@@ -17,7 +17,7 @@ module.exports = {
 		// })
 
 		//after assocation
-		 Order.find({})
+		 Order.find({paid: false, status: 'pending'})
 		 .populate('menu')
 		 .populate('_customer')
 		 .exec(function(err, results) {
@@ -27,12 +27,51 @@ module.exports = {
 		 		res.json(results);
 		 	}
 		 })
-
-
 	},
 
+	getorders_unpaid: function(req, res) {
+		//test hard-code data
+		//res.json([{name: "batman", number:11}, {name: "superman", number:22}])	
+
+		//before assocation
+		// Order.find({}, function(err, output) {
+		// 	if(err) {
+		// 		console.log('err con getorders', err);
+		// 	} else {
+		// 		res.json(output);
+		// 	}
+		// })
+
+		//after assocation
+		 Order.find({paid:false})
+		 .populate('menu')
+		 .populate('_customer')
+		 .exec(function(err, results) {
+		 	if(err) {
+		 		console.log('con getorders',err)
+		 	} else {
+		 		res.json(results);
+		 	}
+		 })
+	},
+
+	getthisorder: function(req, res) {
+		Order.findOne({_id:req.query._id})
+		 .populate('menu')
+		 .populate('_customer')
+		 .exec(function(err, output) {
+			if(err) {
+				console.log('err con getthisorder', err);
+			} else {
+				res.json(output);
+				console.log('baby con getthisorder', output);
+			}
+		})
+	},
+
+
 	addorder: function(req, res) {
-		// console.log(req.body.item._id);
+		console.log(req.body);
 		var cc = new Order(
 			{name:req.body.name, 
 				type:req.body.type, 
@@ -40,6 +79,10 @@ module.exports = {
 				menu: req.body.menu,
 				_customer: req.body._customer,
 				comment: req.body.comment,
+				number: req.body.number,
+				status: 'pending',
+				// ready: false, 
+				paid: false,
 				// created:Date.now()}
 			});
 		// cc.menu.push(req.body.item); 
@@ -63,19 +106,6 @@ module.exports = {
 		})
 	},
 
-	getthisorder: function(req, res) {
-		Order.findOne({_id:req.query._id})
-		 .populate('menu')
-		 .populate('_customer')
-		 .exec(function(err, output) {
-			if(err) {
-				console.log('err con getthisorder', err);
-			} else {
-				res.json(output);
-				console.log('baby con getthisorder', output);
-			}
-		})
-	},
 
 	editthisorder: function(req, res) {
 		console.log('con editthisorder22', req.body)
@@ -122,6 +152,36 @@ module.exports = {
 				order.menu.splice(req.body.index,1);
 				order.save();
 				res.json(order);
+			}
+		})
+	},
+
+	readyOrder: function(req, res) {
+		Order.update({_id:req.body._id}, {status:'ready'}, function(err, order) {
+			if (err) {
+				//console.log('err menulike',err)
+			} else {
+			
+			}
+		})
+	},
+
+	servedOrder: function(req, res) {
+		Order.update({_id:req.body._id}, {status:'served'}, function(err, order) {
+			if (err) {
+				//console.log('err menulike',err)
+			} else {
+			
+			}
+		})
+	},
+
+	paidOrder: function(req, res) {
+		Order.update({_id:req.body._id}, {status:'paid', paid: true}, function(err, order) {
+			if (err) {
+				//console.log('err menulike',err)
+			} else {
+			
 			}
 		})
 	}

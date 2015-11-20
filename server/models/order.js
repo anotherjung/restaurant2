@@ -7,9 +7,11 @@ var Schema = mongoose.Schema;
 var OrderSchema = new mongoose.Schema({
 	name: String,
 	type: String,
-	placed: Boolean,
+	number: String,
+	status: String, 
+	// ready: Boolean,
+	// served: Boolean,
 	paid: Boolean,
-	cooked: Boolean,
 	total: Number,
 	comment: String,
 	created_date: {type: Date, default: new Date},
