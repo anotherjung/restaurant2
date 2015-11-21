@@ -4,6 +4,7 @@ myApp.controller('thisOrderController', function ($scope, $routeParams, $locatio
 
 	orderFactory.getThisOrder(thisOrder, function (data) {
 		$scope.oneOrder = data;
+		console.log($scope.oneOrder);
 	})
 
 	menuFactory.getMenus(function (data) {

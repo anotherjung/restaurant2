@@ -41,8 +41,8 @@
 			    	<td>{{item.price}}</td>
 			    	<td>
 			    		<button ng-click='itemOrderIncr($index)'>+</button>
-			    		<button ng-click='itemOrderDecr($index)'>-</button>
-			    		<button ng-if="oneOrder.status='pending'" ng-click='itemDelete($index)'>X</button>
+			    		<button  ng-if="oneOrder.status == 'pending'" ng-click='itemOrderDecr($index)'>-</button>
+			    		<button ng-if="oneOrder.status == 'pending'" ng-click='itemDelete($index)'>X</button>
 			    	</td>
 				</tr>
 				<tr>
