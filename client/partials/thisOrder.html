@@ -8,44 +8,68 @@
   	<div class="col s12 m12 l12"> 
 	    <h5 class="center-align">hi Order</h5>
 			<form class='form'>
-			    <label for="name1">Name:</label>
+				Status: {{oneOrder.status}}
+				<br>
+			    <h3><label for="name1">Name:</label></h3>
 			    <!--2b declare ng-model-->
 			    <input id="name1" class='form-control' type='text' name='name' ng-model='oneOrder.name' required>
 
-			    <label for="group1">Type:</label>
-			    <!--2b declare ng-model-->
-			    <input id="group1" class='form-control' type='text' name='group' ng-model='oneOrder.type' required>		
+			    <input type='radio' name='type' ng-model="newOrder.type" value="Dine-In" id='dine-in' ><label for='dine-in'>Dine-In</label>
+				<span id='span_radio'>   </span>
+				<input type='radio' name='type' ng-model="newOrder.type"  value="Take-Out" id='take-out'><label for='take-out'>Take-Out</label>
 
-			    <label for "price1">Total:</label>
-			    <!--2b declare ng-model-->
-			    <input id="price1" class='form-control' type='text' name='price' ng-model='oneOrder.total' required>	
+		   			<div ng-if="newOrder.type=='Dine-In'">
+					    <label for="name1">Table:</label>
+					    <select class='browser-default' ng-model='newOrder.number'>
+					    	<option ng-repeat='number in numbers' value="{{number}}">{{number}}</option>
+					    </select>
+					</div>
 
+
+	    	<h5 class="center-align">Change Order Item Quantity</h5>
+	    
+	    		<table>
+	    		<tr>
+	    			<th>Item</th>
+	    			<th>Qty</th>
+	    			<th>Price</th>
+	    			<th>Action</th>
+	    		</tr>
+			    <tr ng-repeat='item in oneOrder.menu'>
+			    	<td>{{item.name}}</td>
+			    	<td>{{oneOrder.qty[$index]}}</td>
+			    	<td>{{item.price}}</td>
+			    	<td>
+			    		<button ng-click='itemOrderIncr($index)'>+</button>
+			    		<button ng-click='itemOrderDecr($index)'>-</button>
+			    		<button ng-if="oneOrder.status='pending'" ng-click='itemDelete($index)'>X</button>
+			    	</td>
+				</tr>
+				<tr>
+					<td>Select Menu
+					 <select class="browser-default" ng-model='itemAdd' ng-options='item as item.name for item in menus'>
+	   		   		</select> 
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					    <input class="waves-effect waves-light btn blue" type="submit" value="+" ng-click='menuThisOrder(oneOrder, itemAdd)'>
+					</td>
+				</tr>
+				</table>
+
+				<textarea ng-model='oneOrder.comment'>{{oneOrder.comment}}</textarea>
+	
+			    <h3>Total ($): {{oneOrder.total}}</h3>
+			    <!--2b declare ng-model-->
 			    <input class="waves-effect waves-light btn blue" type="submit" value="Submit" ng-click='editThisOrder(oneOrder)'>
 			</form>
-			<form>
-			    <select class="browser-default" ng-model='oneOrder.item'>
-			    	<option value="" disabled selected>Select Menu</option>
-			    	<option ng-repeat="menu in menus" value="{{menu._id}}">{{menu.name}}</option>
-			    </select> 
-
-			    <input class="waves-effect waves-light btn blue" type="submit" value="Submit" ng-click='menuThisOrder(oneOrder)'>
-			</form>
+		
 		</div>
 	</div>
 
-  <div class="row">
-  	<div class="col s12 m12 l12"> 
-	    <h5 class="center-align">Delete Menu Item</h5>
-	    <form>
-
-
-	    <div ng-repeat='item in oneOrder.menu'>
-			<p><button ng-click='itemDelete(oneOrder, $index)'>X</button> {{item.name}} : {{item.qty}}</p>
-		</div>
-
-		</form>
-	</div>
-</div>
 
 
 	<!-- ends form for order -->

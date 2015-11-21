@@ -37,18 +37,19 @@ myApp.factory('orderFactory', function ($http, $route, $location) {
 		$route.reload();
 	}
 
-	factory.editThisOrder = function(oneOrder, callback) {
-		$http.post('/editThisOrder', oneOrder).success(function(output) {
+	factory.orderEdit = function(order, callback) {
+		$http.post('/orderEdit', order).success(function(output) {
 			console.log('baby fac editThisOrder', output)
 		})
 		$location.path('displayOrders');
 	}
 
-	factory.menuThisOrder = function(oneOrder, callback) {
-		$http.post('/menuThisOrder', oneOrder).success(function(output) {
+	factory.menuThisOrder = function(order, item, callback) {
+		data = {order: order, item: item}
+		$http.post('/menuThisOrder', data).success(function(output) {
 			console.log('baby fac editThisOrder', output)
+			callback(output);
 		})
-		$location.path('displayOrders');
 	}
 
 	factory.deleteItemThisOrder = function(order, index, callback) {
@@ -56,6 +57,28 @@ myApp.factory('orderFactory', function ($http, $route, $location) {
 		console.log(index);
 		data = {order: order, index: index};
 		$http.post('/deleteItemThisOrder', data).success(function(output) {
+			console.log('delete item ThisOrder', output)
+			order = output;
+			callback(order);
+		})
+	}
+
+	factory.thisOrderitemIncr = function(order, index, callback) {
+		console.log(order);
+		console.log(index);
+		data = {order: order, index: index};
+		$http.post('/itemOrderIncr', data).success(function(output) {
+			console.log('delete item ThisOrder', output)
+			order = output;
+			callback(order);
+		})
+	}
+
+	factory.thisOrderitemDecr = function(order, index, callback) {
+		console.log(order);
+		console.log(index);
+		data = {order: order, index: index};
+		$http.post('/itemOrderDecr', data).success(function(output) {
 			console.log('delete item ThisOrder', output)
 			order = output;
 			callback(order);

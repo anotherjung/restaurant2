@@ -108,9 +108,15 @@ module.exports = {
 	},
 
 
-	editthisorder: function(req, res) {
+	orderEdit: function(req, res) {
 		console.log('con editthisorder22', req.body)
-		Order.update({_id:req.body._id}, {name:req.body.name, type:req.body.type, total:req.body.total}, function(err, output) {
+		Order.update({_id:req.body._id}, 
+			{name:req.body.name, 
+			type:req.body.type, 
+			total:req.body.total,
+			menu: req.body.menu,
+			qty: req.body.qty}, 
+			function(err, output) {
 			if(err) {
 				console.log('err con editthisorder',err);
 			} else {
@@ -122,24 +128,25 @@ module.exports = {
 	},
 
 	menuthisorder: function(req, res) {
-		console.log('con editthisorder22', req.body)
-		Order.findOne({_id:req.body._id}, function(err, order) {
+		console.log('con add item to thisorder22', req.body)
+		Order.findOne({_id:req.body.order._id}, function(err, order) {
 			if(err) {
 				console.log('err con editthisorder',err);
 			} else {
+				console.log(order);
 				//res.json(output);
 				order.menu.push(req.body.item);
 				order.total += req.body.item.price;
 				console.log(order.total);
 				order.save();
 				res.json(order);
-				console.log('con editthisorder', order);
+				// console.log('con editthisorder', order);
 			}
 		})
 
 	},
 
-	deleteitem_thisorder: function(req, res) {
+	itemDelete_thisorder: function(req, res) {
 		console.log('delete items', req.body)
 		Order.findOne({_id:req.body.order._id})
 		.populate('menu')
@@ -148,9 +155,51 @@ module.exports = {
 			if(err) {
 				console.log('err con getthisorder', err);
 			} else {
-				console.log('baby con getthisorder', order);
-				order.total -= order.menu[req.body.index].price;				
+				console.log('baby Jung con decrement item this order', order);
+				var itemTotal = order.menu[req.body.index].price * order.qty[req.body.index];
+				order.total -= itemTotal;				
 				order.menu.splice(req.body.index,1);
+				order.save();
+				res.json(order);
+			}
+		})
+	},
+
+	itemIncr_thisorder: function(req, res) {
+		console.log('incr item', req.body)
+		Order.findOne({_id:req.body.order._id})
+		.populate('menu')
+		.populate('_customer')
+		.exec(function(err, order) {
+			if(err) {
+				console.log('err con getthisorder', err);
+			} else {
+				console.log('baby Jung con increment item in this order', order);
+				order.total += order.menu[req.body.index].price;
+				order.qty[req.body.index] += 1;			
+				order.save();
+				res.json(order);
+			}
+		})
+	},
+
+	itemDecr_thisorder: function(req, res) {
+		console.log('incr item', req.body)
+		Order.findOne({_id:req.body.order._id})
+		.populate('menu')
+		.populate('_customer')
+		.exec(function(err, order) {
+			if(err) {
+				console.log('err con getthisorder', err);
+			} else {
+				console.log('baby Jung con increment item in this order', order);
+				order.total -= order.menu[req.body.index].price;
+				if (order.qty[req.body.index] > 1){
+					order.qty[req.body.index] -= 1;	
+					} else{
+					order.menu.splice(req.body.index,1);
+					order.qty.splice(req.body.index,1);
+					} 
 				order.save();
 				res.json(order);
 			}

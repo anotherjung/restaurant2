@@ -86,8 +86,8 @@ module.exports = function(app) {
 		orders.deleteorder(req, res)
 	})
 
-	app.post('/editThisOrder', function (req, res) {
-		orders.editthisorder(req, res)
+	app.post('/orderEdit', function (req, res) {
+		orders.orderEdit(req, res)
 	})
 
 	app.post('/menuThisOrder', function (req, res) {
@@ -95,7 +95,15 @@ module.exports = function(app) {
 	})
 
 	app.post('/deleteItemThisOrder', function (req, res) {
-		orders.deleteitem_thisorder(req, res)
+		orders.itemDelete_thisorder(req, res)
+	})
+
+	app.post('/itemOrderIncr', function (req, res) {
+		orders.itemIncr_thisorder(req, res)
+	})
+
+	app.post('/itemOrderDecr', function (req, res) {
+		orders.itemDecr_thisorder(req, res)
 	})
 
 	app.post('/readyOrder', function(req,res){
