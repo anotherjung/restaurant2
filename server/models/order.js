@@ -17,8 +17,8 @@ var OrderSchema = new mongoose.Schema({
 	created_date: {type: Date, default: new Date},
 	menu: [{type: Schema.Types.ObjectId, ref:'Menu'}],
 	qty: [],
-	// items: [{{type: Schema.Types.ObjectId, ref:'Menu'}, qty: Number}],
-	_customer: {type: Schema.ObjectId, ref:'Customer'}
+	staff: {type: Schema.Types.ObjectId, ref: 'Staff'}
+	// _customer: {type: Schema.ObjectId, ref:'Customer'}
 });
 
 var Order = mongoose.model('Order', OrderSchema);

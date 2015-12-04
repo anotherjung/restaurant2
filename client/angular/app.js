@@ -6,7 +6,12 @@ myApp.config(function ($routeProvider) {
 	.when('/',{
 		templateUrl: 'partials/home.html'
 	})
-
+	.when('/login',{
+		templateUrl: 'partials/login.html'
+	})
+	.when('/register',{
+		templateUrl: 'partials/register.html'
+	})
 	.when('/addMenu',{
 		templateUrl: 'partials/addMenu.html'
 	})

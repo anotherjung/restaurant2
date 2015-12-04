@@ -16,14 +16,17 @@
 <body ng-app='myApp'>
 
 	<div class="container">
-	 <a href="#/">home</a> | 
+	 <a href="#/">Home</a> |
+	 <a href="#/login">Login</a> | 
+	 <a href="#/register">Register</a> |
 	 <a href="#/displayMenus">display Menus</a>  | 
 	 <a href="#/addMenu">add Menu</a> | 
 	 <a href="#/displayOrders">display Orders</a> | 
 	 <a href="#/displayOrders/chef">Chef Orders</a> |
-	 <a href="#/addOrder">add Order</a> | 
-	 <a href="#/addCustomer">add Customer</a> | 
-	 <a href="#/displayCustomers">display Customers</a>
+<!-- 	 <a href="#/addOrder">add Order</a> |  -->
+<!-- 	 <a href="#/addCustomer">add Customer</a> |  -->
+<!-- 	 <a href="#/displayCustomers">display Customers</a>
+ -->	
 	</div>
 
 	<div ng-view="">
@@ -46,6 +49,9 @@
 	<script src='angular/orderFactory.js'/></script>
 	<script src='angular/thisOrderController.js'/></script>
 	
+	<script src='angular/staffController.js'/></script>
+	<script src='angular/staffFactory.js'/></script>
+
 	<script src='angular/customerController.js'/></script>
 	<script src='angular/customerFactory.js'/></script>
 	<script src='angular/thisCustomerController.js'/></script>
