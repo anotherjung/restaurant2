@@ -56,12 +56,7 @@ select {
 					    <select class='browser-default' ng-model='newOrder.number'>
 					    	<option ng-repeat='number in numbers' value="{{number}}">{{number}}</option>
 					    </select>
-					</div>
-				    <select class="browser-default" ng-model='newOrder._customer'>
-					    	<option value="" disabled selected>Select Customer</option>
-					    	<option ng-repeat="customer in customers" value="{{customer._id}}">{{customer.name}}</option>
-					</select> 			
-			
+					</div>		
 					<div id='order_items'>
 						<h3>Order</h3>
 							<table id='tableOrder'>

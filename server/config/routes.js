@@ -7,13 +7,15 @@ var mongoose = require('mongoose');
 var Menu = mongoose.model('Menu');
 var Order = mongoose.model('Order');
 var Customer = mongoose.model('Customer');
+var Staff = mongoose.model('Staff');
 
 //MVC2c for controller
 var menus  = require('../controllers/menus.js');
 var orders = require('../controllers/orders.js');
 var customers = require('../controllers/customers.js');
-
+var staff = require('../controllers/staffs.js')
 //start MVC1d export
+
 module.exports = function(app) {
 	var bodyParser = require('body-parser');
 	app.use(bodyParser.urlencoded({
@@ -27,6 +29,32 @@ module.exports = function(app) {
 		res.render("index");
 		//console.log('home page loaded');
 	})
+
+	app.post('/staff_login', function(req,res,next){
+		staff.login(req,res,next)
+	})
+
+	app.post('/staff_register', function(req,res,next){
+		staff.register(req,res,next)
+	})
+
+	// app.post('/staffRegister', function(req,res,next){
+	// 	passport.authenticate('localStaff-register', function(err, user, info) {
+ //    	if (err) { return next(err) }
+ //    	if (!user) {
+ //      // *** Display message using Express 3 locals
+ //      	console.log(info.message);
+ //       	return res.json({message: info.message});
+ //    	}
+ //    	req.logIn(user, function(err) {
+ //    	console.log(user);
+ //    	console.log(req.user);
+ //      	if (err) { return next(err); }
+ //      	return res.json(req.user);
+ //    	});
+ //  		})(req, res, next);
+
+	// });
 
 	//route to render menu
 	app.get('/getMenus', function (req, res) {

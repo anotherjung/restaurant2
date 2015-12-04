@@ -20,6 +20,7 @@ module.exports = {
 		 Order.find({paid: false, status: 'pending'})
 		 .populate('menu')
 		 .populate('_customer')
+		 .populate('staff')
 		 .exec(function(err, results) {
 		 	if(err) {
 		 		console.log('con getorders',err)
@@ -45,6 +46,7 @@ module.exports = {
 		//after assocation
 		 Order.find({paid:false})
 		 .populate('menu')
+		 .populate('staff')
 		 .populate('_customer')
 		 .exec(function(err, results) {
 		 	if(err) {
@@ -73,7 +75,8 @@ module.exports = {
 	addorder: function(req, res) {
 		console.log(req.body);
 		var cc = new Order(
-			{name:req.body.name, 
+			{	staff: req.body.staff,
+				name:req.body.name, 
 				type:req.body.type, 
 				total:req.body.total,
 				menu: req.body.menu,

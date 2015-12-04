@@ -1,0 +1,48 @@
+<div ng-controller='staffController'>
+      <body>
+
+      <form name='registerUser' novalidate>
+
+                  <span style="color:red" ng-show="registerUser.last_name.$dirty && registerUser.last_name.$invalid">
+                  <span ng-show="registerUser.email.$error.required">Email is required.</span>
+                  </span>
+                  <span ng-show="registerUser.email.$error.email">Invalid email address.</span>
+                  <input type="text" name='email' ng-model="userNew.email" class="form-control" placeholder="Email" required><br>
+
+
+                  <span style="color:red" ng-show="(registerUser.first_name.$dirty && registerUser.first_name.$invalid) || message">
+                  <span ng-show="registerUser.first_name.$error.required">First name is required.</span>
+                  <span ng-show="registerUser.first_name.$error.minlength">First name must be at least 2 characters.</span>
+                  </span>
+                  <input type="text" name='first_name' ng-model="userNew.first_name" class="form-control" placeholder="First Name" ng-minlength="2" required><br>
+
+                  <span style="color:red" ng-show="registerUser.last_name.$dirty && registerUser.last_name.$invalid">
+                  <span ng-show="registerUser.last_name.$error.required">Last name is required.</span>
+                  <span ng-show="registerUser.last_name.$error.minlength">Last name must be at least 2 characters.</span>
+                  </span>
+                  <input type="text" name='last_name' ng-model="userNew.last_name" class="form-control" placeholder="Last Name" ng-minlength="2" required><br>
+                  
+                  <span style="color:red" ng-show="registerUser.password.$dirty && registerUser.password.$invalid">
+                  <span ng-show="registerUser.password.$error.required" class="form-control">Password is required.</span>
+                  </span>
+                  <input type="password" ng-model="userNew.password" class="form-control" placeholder="Password" required><br>
+
+
+                  <span style="color:red" ng-show="registerUser.passconf.$dirty && registerUser.passconf.$invalid">
+                  <span ng-show="registerUser.passconf.$error.required">Confirmation is required.</span>
+                  </span>
+                  <input type="password" ng-model="userNew.passconf" class="form-control" placeholder="Confirmation" required><br>
+
+                       <!-- <button type="button" ng-click='staffAdd(userNew)' ng-disabled="registerUser.$invalid">Register</button> -->
+                  
+                  ROLE
+                  <select class="browser-default"  ng-model="userNew.role">
+                        <option value="wait">Wait</option>
+                        <option value="cook">Cook</option>
+                        <option value="kitchen">Kitchen (non-cook)</option>
+                        <option value="manager">Manager</option>
+                  </select>
+                  <button type="button" ng-click='staffAdd(userNew)'>Register</button>
+      </form>
+      </body>
+</div>
