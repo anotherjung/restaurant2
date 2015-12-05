@@ -1,0 +1,45 @@
+<!-- add ng-controller directive to div container -->
+<div class="container" ng-controller='menuController'>
+
+  <!-- start form for menus -->
+  <div class="row">
+  	<div class="col s12 m12 l12"> 
+	    <h5 class="center-align">hi Menu</h5>
+			<form class='form'>
+			    <label for="name1">Name:</label>
+			    <!--2b declare ng-model-->
+			    <input id="name1" class='form-control' type='text' name='name' ng-model='oneMenu.name' required>
+
+			    <label for="group1">Group:</label>
+			    <!--2b declare ng-model-->
+			    <input id="group1" class='form-control' type='text' name='group' ng-model='oneMenu.group' required>			    
+			    <label for "image1">Image (url):</label>
+			    <!--2b declare ng-model-->
+			    <input id="image1" class='form-control' type='text' name='imageurl' ng-model='oneMenu.imageurl'>
+
+			    <label for "price1">Initial Price:</label>
+			    <!--2b declare ng-model-->
+			    <input id="price1" class='form-control' type='text' name='price' ng-model='oneMenu.price' required>
+
+			    <input class="waves-effect waves-light btn blue" type="submit" value="Submit" ng-click='editMenu(oneMenu)'>
+			</form>
+		</div>
+	</div>
+	<!-- ends form for menus -->
+
+
+<div class="card">
+	<div class="card-image"><img src="{{oneMenu.imageurl}}">
+		<span class="card-title"><input class="btn-floating waves-effect waves-light red" type="submit" value="X" ng-click="deleteMenu(menu)"><span class="right"><a class="btn-floating btn-small waves-effect waves-light red" href="#/thisMenu/{{oneMenu._id}}"><i class="large material-icons">mode_edit</i></a><input class="btn-floating btn-small waves-effect waves-light blue" type="submit" value="{{oneMenu.like}}" ng-click="likeMenu(menu)"></span></span>
+
+	</div>
+
+	<div class="card-content grey darken-1 white-text left-align">
+		<h5>{{oneMenu.name}}</h5>
+		<p>price: ${{oneMenu.price}}</p>				
+
+	</div>
+</div>
+
+
+</div>

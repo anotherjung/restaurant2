@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 var MenuSchema = new mongoose.Schema({
 	name: String,
 	ingredients: String, 
+	details: String,
 	group: String,
 	imageurl: {type: String, default: 'http://app.resrc.it/s=w1280,pd2/o=85/http://www.your-site.co/image.jpg'},
 	price: Number,

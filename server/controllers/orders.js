@@ -72,7 +72,7 @@ module.exports = {
 	},
 
 
-	addorder: function(req, res) {
+	orderAdd: function(req, res) {
 		console.log(req.body);
 		var cc = new Order(
 			{	staff: req.body.staff,
@@ -93,19 +93,19 @@ module.exports = {
 		console.log(cc);
 		cc.save(function(err) {
 			if(err) {
-				console.log('err con addorder', err);
+				res.json({message: "An error ocurred."});
 			} else {
-				res.redirect('/');
+				res.json({message: "Order Added!"});
 			}
 		})
 	},
 
-	deleteorder: function(req, res) {
+	orderDelete: function(req, res) {
 			Order.remove({_id:req.body._id}, function(err, output) {
 			if(err){
-				console.log('err con deleteorder', err )
+				res.json({message: "there was an error."});
 			} else {
-				console.log('baby con deleteorder', output)
+				res.json({message: "order deleted successfully!"});
 			}
 		})
 	},

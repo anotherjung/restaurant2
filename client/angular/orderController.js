@@ -1,4 +1,4 @@
-myApp.controller('orderController', function ($scope, orderFactory, menuFactory, customerFactory, $routeParams) {
+myApp.controller('orderController', function ($scope, $routeParams, $location, orderFactory, menuFactory, customerFactory) {
 	$scope.orders = [];
 	$scope.itemsOrder = [];
 	$scope.qtyOrder = [];
@@ -12,13 +12,13 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 	console.log("staff");
 	console.log($routeParams);
 
-	 $scope.user = JSON.parse(sessionStorage.getItem('user'));
+	 $scope.staff = JSON.parse(sessionStorage.getItem('user'));
   
- 	 console.log($scope.user);
+ 	 console.log($scope.staff);
 
-	 var user_id = sessionStorage.getItem('user_id');   
+	 var staff_id = sessionStorage.getItem('user_id');   
 
-	if ($routeParams.person){
+	if ($routeParams.role){
 		orderFactory.getOrders_pending(function (data) {
 			$scope.orders = data;
 		})
@@ -79,14 +79,17 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 	$scope.addOrder = function (newOrder, items) {
 		newOrder.menu = items;
 		newOrder.qty = $scope.qtyOrder;
-		newOrder.staff = user_id;
+		newOrder.staff = staff_id;
 		console.log('here new order');
 		console.log(newOrder);
-		orderFactory.addOrder(newOrder);
+		orderFactory.addOrder(newOrder, function(message){
+			alert(message.message);
+			$location.path("/orders")
+		});
+		// orderFactory.getOrders_unpaid(function (data) {
+		// $scope.orders = data;
+		// })
 
-		orderFactory.getOrders_unpaid(function (data) {
-		$scope.orders = data;
-		})
 	}
 
 	$scope.orderReady = function(order){
@@ -109,7 +112,14 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 
 	$scope.deleteOrder = function (order) {
 		console.log('con deleteorder',order)
-		orderFactory.deleteOrder(order);
+		orderFactory.deleteOrder(order, function(data){
+			alert(data.message);
+		})
+
+		orderFactory.getOrders_pending(function (data) {
+			$scope.orders = data;
+
+		});
 	}
 
 //ends controller

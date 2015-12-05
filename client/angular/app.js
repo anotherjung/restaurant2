@@ -4,7 +4,7 @@ var myApp = angular.module('myApp', ['ngRoute']);
 myApp.config(function ($routeProvider) {
 	$routeProvider
 	.when('/',{
-		templateUrl: 'partials/home.html'
+		templateUrl: 'partials/login.html'
 	})
 	.when('/login',{
 		templateUrl: 'partials/login.html'
@@ -12,36 +12,35 @@ myApp.config(function ($routeProvider) {
 	.when('/register',{
 		templateUrl: 'partials/register.html'
 	})
-	.when('/addMenu',{
-		templateUrl: 'partials/addMenu.html'
+	.when('/menu',{
+		templateUrl: 'partials/menu.html'
+	})
+	.when('/kitchen',{
+		templateUrl: 'partials/kitchen.html'
 	})
 
-	.when('/displayMenus',{
-		templateUrl: 'partials/displayMenus.html'
+	.when('/item/:id',{
+		templateUrl: 'partials/item.html'
 	})
 
-	.when('/thisMenu/:id',{
-		templateUrl: 'partials/thisMenu.html'
+	.when('/order',{
+		templateUrl: 'partials/order.html'
 	})
 
-	.when('/addOrder',{
-		templateUrl: 'partials/addOrder.html'
+	.when('/order/:id',{
+		templateUrl: 'partials/ticket.html'
 	})
 
-	.when('/thisOrder/:id',{
-		templateUrl: 'partials/thisOrder.html'
+	.when('/receipt/:id',{
+		templateUrl: 'partials/receipt.html'
 	})
 
-	.when('/orderReceipt/:id',{
-		templateUrl: 'partials/receiptOrder.html'
+	.when('/orders',{
+		templateUrl: 'partials/orders.html'
 	})
 
-	.when('/displayOrders',{
-		templateUrl: 'partials/displayOrders.html'
-	})
-
-	.when('/displayOrders/:person',{
-		templateUrl: 'partials/ordersChef.html'
+	.when('/orders/:role',{
+		templateUrl: 'partials/chef.html'
 	})
 
 	.when('/addCustomer',{

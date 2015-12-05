@@ -1,0 +1,63 @@
+<!-- 1b add ng-controller directive to div container -->
+<div class="container" ng-controller='menuController'>
+  <!-- testing -->
+
+  <!-- start form for adding -->
+  <div class="row">
+  	<div class="col s12 m12 l12"> 
+	    <h5 class="center-align">Create New Menu Items</h5>
+			<form class='form'>
+			    <label for="name1">Name:</label>
+			    <!--2b declare ng-model-->
+			    <input id="name1" class='form-control' type='text' name='name' ng-model='newMenu.name' required>
+
+			   	<label for="group1">Ingredient:</label>
+			    <!--2b declare ng-model-->
+			    <input id="group1" class='form-control' type='text' name='ingredient' ng-model='newMenu.ingredients' required>	
+
+			   	<label for="group1">Group:</label>
+			    <!--2b declare ng-model-->
+			    <input id="group1" class='form-control' type='text' name='group' ng-model='newMenu.group' required>	
+
+			    <label for "image1">Image (url):</label>
+			    <!--2b declare ng-model-->
+			    <input id="image1" class='form-control' type='text' name='imageurl' ng-model='newMenu.imageurl'>
+
+			    <label for "price1">Initial Price:</label>
+			    <!--2b declare ng-model-->
+			    <input id="price1" class='form-control' type='text' name='price' ng-model='newMenu.price' required>
+
+			    <input class="waves-effect waves-light btn blue" type="submit" value="Submit" ng-click='addMenu()'>
+			</form>
+		</div>
+	</div>
+	<!-- ends form for adding -->
+
+
+
+	<!-- start display menus -->
+	<div class="row">
+		<div class="col s12 m12 l12">
+			<label for="search1">Search:</label>
+			<input id="search1" type="text" ng-model="filter_name">
+
+			<div ng-repeat="menu in menus | filter:filter_name | orderBy:'-created_date'" class="col s12 m4 l3">
+				<div class="card small">
+
+				<div class="card-image"><img src="{{menu.imageurl}}">
+					<span class="card-title"><input class="btn-floating waves-effect waves-light btn red material-icons prefix" type="submit" value="delete" ng-click="deleteMenu(menu)"><span class="right"><a class="btn-floating btn-small waves-effect waves-light red" href="#/thisMenu/{{menu._id}}"><i class="large material-icons">mode_edit</i></a><input class="btn-floating btn-small waves-effect waves-light blue" type="submit" value="{{menu.like}}" ng-click="likeMenu(menu)"></span></span>
+
+				</div>
+
+				<div class="card-content grey darken-1 white-text left-align">
+					<h5>{{menu.name}}</h5>
+					<p>price: ${{menu.price}}</p>				
+			
+				
+			</div>
+		</div>
+	</div>
+	<!-- ends display menus -->
+
+</div>
+<!-- ends container -->

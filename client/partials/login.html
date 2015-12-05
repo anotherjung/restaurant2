@@ -92,7 +92,9 @@
   <!-- Large modal -->
 <div ng-controller='staffController'>
   <body>
-
+  <p id='space' ng-repeat = 'error in errors'>
+      {{error}}  
+  </p>
     <h1>HALF PENNY</h1>
      <form id='formLogin' class='form-inline'>
               <p class='msg_error'>{{error}}</p>
@@ -114,9 +116,7 @@
   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#login_main">
     >>>
   </button>
-  <p id='space' ng-repeat = 'error in errors'>
-      {{error}}  
-  </p>
+
   </div>
 
   <!-- Staff Login -->

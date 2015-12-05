@@ -1,0 +1,85 @@
+<!-- 1b add ng-controller directive to div container -->
+<style>
+#menu, #details{
+	display: inline-block;
+	vertical-align: top;
+}
+#menu{
+	width:65%;
+	margin: 0 auto;
+}
+#details{
+	width:30%;
+}
+
+.card.medium {
+  height: auto;
+}
+.card.medium .card-content {
+  height: auto;
+}
+.card.medium .card-action {
+  position: relative;
+}
+
+</style>
+<div class="container" ng-controller='menuController'>
+  <!-- testing -->
+  	<a href='#/kitchen' ng-if="staff.role=='cook'">Add Menu Item</a>
+
+	<!-- start display menus -->
+	<div class="row">
+		<div class="col s12 m12 l12">
+			<label for="search1">Search:</label>
+			<input id="search1" type="text" ng-model="filter_name">
+			<table id='menu'>
+				<col width='60%'>
+				<col width='20%'>
+				<col width='20%'>
+				<tr>
+					<th>Item</th>
+					<th>Price ($)</th>
+					<th>Select</th>
+				</tr>
+
+				<tr ng-repeat="item in menu | filter:filter_name | orderBy:'-created'">
+					<td>{{item.name}}</td>
+					<td>{{item.price}}</td>
+					<td> 
+						<button class="waves-effect waves-light btn blue" type="submit" ng-click='itemSelect(item)'><i class="material-icons">label</i>
+						</button>
+					</td>				
+				</tr>
+			</table>
+				<div id='details' class="card medium" ng-show='itemThis'>
+					<div class="card-image">
+						<img src="{{itemThis.imageurl}}">
+					</div>
+			
+
+					<div class="card-content grey darken-1 white-text left-align">
+						<span class="card-title">
+						<h5>{{itemThis.name}}</h5>
+						<p>price: ${{itemThis.price}}</p>
+						</span>
+						<div class="card-action">
+							<button class="btn-floating waves-effect waves-light red" ng-click="deleteMenu(itemThis)">X</button>
+							<a href="#/item/{{itemThis._id}}">
+								<button class="btn-floating waves-effect waves-light red">
+									<i class="large material-icons">mode_edit</i>
+								</button>
+							</a>
+							<button class="btn-floating waves-effect waves-light blue" ng-click="likeMenu(itemThis)">{{itemThis.like}}</button>
+						</div>
+					</div>
+
+				</div>
+
+			
+	
+	<!-- ends display menus -->
+
+		</div>
+	</div>
+</div> 
+<!-- ends container -->

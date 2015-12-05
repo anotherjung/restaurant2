@@ -8,8 +8,11 @@ myApp.controller('staffController', function($scope, $location, staffFactory){
     //       console.log(data);
     // })
 
-    var user_loggedin = sessionStorage.getItem('user_loggedin');
-    if(user_loggedin){
+    $scope.user_loggedin = sessionStorage.getItem('user_loggedin');
+    $scope.staff_loggedin = sessionStorage.getItem('staff_loggedin');
+    $scope.staff = JSON.parse(sessionStorage.getItem('user'));
+
+    if($scope.user_loggedin){
          var user_id = sessionStorage.getItem('user_id');
          factory.accountUser(user_id, function(data){
             console.log(data);
@@ -25,10 +28,10 @@ myApp.controller('staffController', function($scope, $location, staffFactory){
         if($scope.staff){
             switch($scope.staff.role){
                 case 'cook':
-                    $location.path('/displayOrders/chef');
+                    $location.path('/chef');
                     break;
                 default:
-                    $location.path('/displayOrders');
+                    $location.path('/orders');
                     break;
             }           
           } else{
@@ -39,21 +42,25 @@ myApp.controller('staffController', function($scope, $location, staffFactory){
                 
                 } else{
                 
-                sessionStorage.setItem('user',JSON.stringify(data));
-                sessionStorage.setItem('user_id',data._id); 
-                sessionStorage.setItem('staff_loggedin',true); 
+                        sessionStorage.setItem('user',JSON.stringify(data));
+                        sessionStorage.setItem('user_id',data._id); 
+                        sessionStorage.setItem('staff_loggedin',true); 
 
-                var staff_id = sessionStorage.getItem('user_id');
-                $scope.staff = JSON.parse(sessionStorage.getItem('user'));
-                $scope.login = {};
-                switch($scope.staff.role){
-                    case 'cook':
-                        $location.path('/displayOrders/chef');
-                        break;
-                    default:
-                        $location.path('/displayOrders');
-                        break;
-                    }   
+                        var staff_id = sessionStorage.getItem('user_id');
+                        $scope.staff = JSON.parse(sessionStorage.getItem('user'));
+                        $scope.staff_loggedin = true;
+                        console.log('login status');
+                        console.log($scope.staff_loggedin);
+                        $scope.login = {};              
+                        switch($scope.staff.role){
+                            case 'cook':
+                                $location.path('/orders/chef');
+                                break;
+                            default:
+                                $location.path('/orders');
+                                break;
+                            }   
+                        $scope.staff_loggedin = true;
                 }
             })
          }
@@ -101,26 +108,9 @@ myApp.controller('staffController', function($scope, $location, staffFactory){
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('user_loggedin');
         sessionStorage.removeItem('staff_loggedin');
+        $scope.staff_loggedin = false;
         $scope.user = {};
-        $location.path('/');   
-    }
-
-    $scope.accountUser = function(){
-        var user_loggedin = sessionStorage.getItem('user_loggedin');
-        if (user_loggedin){
-            return true;
-        } else{
-            return false;
-        }
-    }
-
-    $scope.accountStaff = function(){
-        var staff_loggedin = sessionStorage.getItem('staff_loggedin');
-        if (staff_loggedin){
-            return true;
-        } else{
-            return false;
-        }
+        $location.path('/login');   
     }
 
     $scope.staffAdd= function (user){
@@ -132,8 +122,6 @@ myApp.controller('staffController', function($scope, $location, staffFactory){
             } else {
                 $scope.message = 'Registration successful, please log in!'; 
                 user_id = data._id;
-                var cart = {orders:[]}
-                $cookies.putObject(user_id,cart);  
                 $scope.staffNew = {};        
             }
          });

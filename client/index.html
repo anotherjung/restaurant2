@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Title of the document</title>
+<title>Half Penny</title>
 	<!--  <link href='css/materialize.css' rel='stylesheet' />  -->
  <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="/bower_components/Materialize/dist/css/materialize.min.css">
@@ -15,14 +15,54 @@
 
 <body ng-app='myApp'>
 
-	<div class="container">
-	 <a href="#/">Home</a> |
-	 <a href="#/login">Login</a> | 
-	 <a href="#/register">Register</a> |
-	 <a href="#/displayMenus">display Menus</a>  | 
-	 <a href="#/addMenu">add Menu</a> | 
-	 <a href="#/displayOrders">display Orders</a> | 
-	 <a href="#/displayOrders/chef">Chef Orders</a> |
+	<div class="container" ng-controller='staffController'>
+	<nav>
+	    <div class="nav-wrapper">
+	      <a href="#/" class="brand-logo">Half Penny</a>
+	      <ul id="nav-mobile" class="right hide-on-med-and-down">
+			<span id='login' ng-if="staff_loggedin">
+			<!--  <li><a href="#/menu">Menu</a> </li>  -->
+		<!-- 	 <li><a href="#/orders">Orders</a> </li> 
+			 <li><a href="#/orders/chef">Chef</a></li>  -->
+			 <li>
+			 	<a class="dropdown-button" href="#!" data-activates="dropdown_menu">
+			 		Menu <i class="material-icons right">arrow_drop_down</i>
+			 	</a>
+			 </li>
+			 <li>
+			 	<a class="dropdown-button" href="#!" data-activates="dropdown_orders">
+			 		Orders <i class="material-icons right">arrow_drop_down</i>
+			 	</a>
+			 </li>
+             <li><a href="#/register">Register</a></li> 
+			 <li><button class="waves-effect waves-light btn blue" ng-click='userLogout()'>Log Out</button></li>
+			</span>
+			<span id='logout' ng-if="!staff_loggedin">
+			 <li><a href="#/login">Login</a></li> 
+             <li><a href="#/register">Register</a></li> 
+			</span>
+	      </ul>
+	    </div>
+  	</nav>
+        
+     <ul id="dropdown_orders" class="dropdown-content">
+	 <li><a href="#/orders">Wait</a> </li> 
+	 <li><a href="#/orders/chef">Cook</a></li> 
+	</ul>
+
+	 <ul id="dropdown_menu" class="dropdown-content">
+	 <li><a href="#/menu">Menu</a> </li>
+     <li class="divider"></li> 
+	 <li ng-show="staff.role=='cook'"><a href="#/kitchen">Add</a></li> 
+	 <li ng-show="staff.role=='wait'"><a href="#/order">Order</a></li>
+	</ul>
+
+
+
+
+
+	
+	
 <!-- 	 <a href="#/addOrder">add Order</a> |  -->
 <!-- 	 <a href="#/addCustomer">add Customer</a> |  -->
 <!-- 	 <a href="#/displayCustomers">display Customers</a>
@@ -37,21 +77,20 @@
 	<script src="/bower_components/angular-route/angular-route.js" /></script>
 	<script src="/bower_components/Materialize/dist/js/materialize.min.js" /></script>
 
-
 	<script src='angular/app.js'/></script>
 	<script src='angular/homeController.js'/></script>
 
-	<script src='angular/menuController.js'/></script>
+	<script src='angular/staffFactory.js'/></script>
+	<script src='angular/staffController.js'/></script>
+
 	<script src='angular/menuFactory.js'/></script>
+	<script src='angular/menuController.js'/></script>
 	<script src='angular/thisMenuController.js'/></script>
 	
-	<script src='angular/orderController.js'/></script>
 	<script src='angular/orderFactory.js'/></script>
-	<script src='angular/thisOrderController.js'/></script>
+	<script src='angular/ticketController.js'/></script>
+	<script src='angular/orderController.js'/></script>
 	
-	<script src='angular/staffController.js'/></script>
-	<script src='angular/staffFactory.js'/></script>
-
 	<script src='angular/customerController.js'/></script>
 	<script src='angular/customerFactory.js'/></script>
 	<script src='angular/thisCustomerController.js'/></script>
