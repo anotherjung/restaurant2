@@ -11,12 +11,15 @@
 		<div class="card-content white-text">
 		status: {{order.status}}
 		<br>
-		staff: {{order.staff.first_name}}
+		
 		<p>{{order.name}}</p>
-		<p>{{order.type}}, {{order.created_date | date:'MMM d, yyyy - h:mm a'}}</p>
+		<p>{{order.type}}</p>
+		<br>
+		staff: {{order.staff.first_name}} 
+		<br> 
+		{{order.created_date | date:'MMM d, yyyy - h:mm a'}}
 		</div>
 		<div class="card-content white-text action">
-	
 			<span ng-show="order.status == 'ready' " ><a href ng-click='orderServed(order)' class="btn grey" ><i class=" material-icons">input</i></a></span>
 
 			<span ng-show="order.status == 'served' "><a class="btn grey" href="#/receipt/{{order._id}}"><i class=" material-icons">receipt</i></a></span>

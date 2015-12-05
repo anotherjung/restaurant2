@@ -106,12 +106,12 @@ module.exports = function(app) {
 		orders.getthisorder(req, res)
 	})
 
-	app.post('/addOrder', function (req, res) {
-		orders.addorder(req, res)
+	app.post('/orderAdd', function (req, res) {
+		orders.orderAdd(req, res)
 	})
 
-	app.post('/deleteOrder', function (req, res) {
-		orders.deleteorder(req, res)
+	app.post('/orderDelete', function (req, res) {
+		orders.orderDelete(req, res)
 	})
 
 	app.post('/orderEdit', function (req, res) {

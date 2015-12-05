@@ -15,9 +15,9 @@
 			    <!--2b declare ng-model-->
 			    <input id="name1" class='form-control' type='text' name='name' ng-model='oneOrder.name' required>
 
-			    <input type='radio' name='type' ng-model="newOrder.type" value="Dine-In" id='dine-in' ng-checked=" newOrder.type == 'Dine-In' "><label for='dine-in'>Dine-In</label>
+			    <input type='radio' name='type' ng-model="newOrder.type" value="Dine-In" id='dine-in' ng-checked=" oneOrder.type == 'Dine-In' "><label for='dine-in'>Dine-In</label>
 				<span id='span_radio'>   </span>
-				<input type='radio' name='type' ng-model="newOrder.type"  value="Take-Out" id='take-out' ng-checked=" newOrder.type == 'Take-Out' "><label for='take-out'>Take-Out</label>
+				<input type='radio' name='type' ng-model="newOrder.type"  value="Take-Out" id='take-out' ng-checked=" oneOrder.type == 'Take-Out' "><label for='take-out'>Take-Out</label>
 
 		   			<div ng-if="newOrder.type=='Dine-In'">
 					    <label for="name1">Table:</label>

@@ -63,11 +63,10 @@ myApp.controller('ticketController', function ($scope, $routeParams, $location, 
 		// });
 	}
 
-
 	$scope.orderPaid  = function(oneOrder) {
 		console.log('con editOrder', oneOrder);
 		orderFactory.orderPaid(oneOrder);
-		$location.path('/displayOrders');
+		$location.path('/orders');
 	}
 
 //end controller

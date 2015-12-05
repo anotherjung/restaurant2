@@ -23,18 +23,17 @@ myApp.factory('orderFactory', function ($http, $route, $location) {
 		})
 	}
 
-	factory.addOrder = function (info) {
-		$http.post('/addOrder', info).success(function(output) {
+	factory.addOrder = function (info, callback) {
+		$http.post('/orderAdd', info).success(function(output) {
 			// console.log('baby fac addorder', output)
+			callback(output);
 		})
-		$route.reload();
 	}
 
 	factory.deleteOrder = function (info, callback) {
-		$http.post('/deleteOrder', info).success(function(output) {
+		$http.post('/orderDelete', info).success(function(output) {
 			callback(output);
 		}) 
-		$route.reload();
 	}
 
 	factory.orderEdit = function(order, callback) {

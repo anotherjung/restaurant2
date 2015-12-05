@@ -1,4 +1,4 @@
-myApp.controller('orderController', function ($scope, orderFactory, menuFactory, customerFactory, $routeParams) {
+myApp.controller('orderController', function ($scope, $routeParams, $location, orderFactory, menuFactory, customerFactory) {
 	$scope.orders = [];
 	$scope.itemsOrder = [];
 	$scope.qtyOrder = [];
@@ -82,11 +82,14 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 		newOrder.staff = staff_id;
 		console.log('here new order');
 		console.log(newOrder);
-		orderFactory.addOrder(newOrder);
+		orderFactory.addOrder(newOrder, function(message){
+			alert(message.message);
+			$location.path("/orders")
+		});
+		// orderFactory.getOrders_unpaid(function (data) {
+		// $scope.orders = data;
+		// })
 
-		orderFactory.getOrders_unpaid(function (data) {
-		$scope.orders = data;
-		})
 	}
 
 	$scope.orderReady = function(order){
@@ -109,7 +112,14 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 
 	$scope.deleteOrder = function (order) {
 		console.log('con deleteorder',order)
-		orderFactory.deleteOrder(order);
+		orderFactory.deleteOrder(order, function(data){
+			alert(data.message);
+		})
+
+		orderFactory.getOrders_pending(function (data) {
+			$scope.orders = data;
+
+		});
 	}
 
 //ends controller
