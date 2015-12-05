@@ -4,7 +4,7 @@ var myApp = angular.module('myApp', ['ngRoute']);
 myApp.config(function ($routeProvider) {
 	$routeProvider
 	.when('/',{
-		templateUrl: 'partials/home.html'
+		templateUrl: 'partials/login.html'
 	})
 	.when('/login',{
 		templateUrl: 'partials/login.html'
@@ -23,15 +23,15 @@ myApp.config(function ($routeProvider) {
 		templateUrl: 'partials/item.html'
 	})
 
-	.when('/addOrder',{
-		templateUrl: 'partials/addOrder.html'
+	.when('/order',{
+		templateUrl: 'partials/order.html'
 	})
 
-	.when('/thisOrder/:id',{
-		templateUrl: 'partials/thisOrder.html'
+	.when('/order/:id',{
+		templateUrl: 'partials/ticket.html'
 	})
 
-	.when('/orderReceipt/:id',{
+	.when('/receipt/:id',{
 		templateUrl: 'partials/receipt.html'
 	})
 
@@ -39,7 +39,7 @@ myApp.config(function ($routeProvider) {
 		templateUrl: 'partials/orders.html'
 	})
 
-	.when('/orders/:person',{
+	.when('/orders/:role',{
 		templateUrl: 'partials/chef.html'
 	})
 

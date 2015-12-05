@@ -18,7 +18,7 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 
 	 var staff_id = sessionStorage.getItem('user_id');   
 
-	if ($routeParams.person){
+	if ($routeParams.role){
 		orderFactory.getOrders_pending(function (data) {
 			$scope.orders = data;
 		})
