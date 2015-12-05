@@ -12,11 +12,11 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 	console.log("staff");
 	console.log($routeParams);
 
-	 $scope.user = JSON.parse(sessionStorage.getItem('user'));
+	 $scope.staff = JSON.parse(sessionStorage.getItem('user'));
   
- 	 console.log($scope.user);
+ 	 console.log($scope.staff);
 
-	 var user_id = sessionStorage.getItem('user_id');   
+	 var staff_id = sessionStorage.getItem('user_id');   
 
 	if ($routeParams.person){
 		orderFactory.getOrders_pending(function (data) {
@@ -79,7 +79,7 @@ myApp.controller('orderController', function ($scope, orderFactory, menuFactory,
 	$scope.addOrder = function (newOrder, items) {
 		newOrder.menu = items;
 		newOrder.qty = $scope.qtyOrder;
-		newOrder.staff = user_id;
+		newOrder.staff = staff_id;
 		console.log('here new order');
 		console.log(newOrder);
 		orderFactory.addOrder(newOrder);

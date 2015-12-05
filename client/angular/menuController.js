@@ -1,10 +1,12 @@
 myApp.controller('menuController', function ($scope, $routeParams, menuFactory) {
 
 	//3 create scope for array
-	$scope.menus = [];
+	$scope.menu = [];
+    $scope.staff = JSON.parse(sessionStorage.getItem('user'));
 	//3 get data from factory
+	console.log($scope.staff);
 	menuFactory.getMenus(function (data) {
-		$scope.menus = data;
+		$scope.menu = data;
 		//console.log('questionFactory.getQuestions', data);
 	})
 
@@ -14,6 +16,11 @@ myApp.controller('menuController', function ($scope, $routeParams, menuFactory) 
 		menuFactory.addMenu($scope.newMenu);
 			$scope.newMenu = {};
 	}
+
+	$scope.itemSelect = function(item){
+		$scope.itemThis = item;
+	}
+	
 	//2b listen for ng-click delete
 	$scope.deleteMenu = function(menu) {
 		console.log('con deleteMenu', menu);

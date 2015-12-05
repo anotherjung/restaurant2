@@ -1,0 +1,35 @@
+<style>
+.action{
+	text-align: center;
+}
+</style>
+<div class="container" ng-controller='orderController'>
+<a href="#/addOrder" ng-if="staff.role=='wait'">Add Order</a>
+<div class="row">
+<div class="col s12 m6 l4" ng-repeat="order in orders | orderBy:'-created_date'">
+	<div class="card grey darken-4">
+		<div class="card-content white-text">
+		status: {{order.status}}
+		<br>
+		staff: {{order.staff.first_name}}
+		<p>{{order.name}}</p>
+		<p>{{order.type}}, {{order.created_date | date:'MMM d, yyyy - h:mm a'}}</p>
+		</div>
+		<div class="card-content white-text action">
+	
+			<span ng-show="order.status == 'ready' " ><a href ng-click='orderServed(order)' class="btn grey" ><i class=" material-icons">input</i></a></span>
+
+			<span ng-show="order.status == 'served' "><a class="btn grey" href="#/orderReceipt/{{order._id}}"><i class=" material-icons">receipt</i></a></span>
+		<!-- 	<span ng-show="order.paid == false">Unpaid</span> -->
+		</div>
+		<div class="card-action center">
+			<span><a class="btn blue" href="#/thisOrder/{{order._id}}"><i class=" material-icons">mode_edit</i></a></span>
+			<span><input class="btn red material-icons prefix" type="submit" value="delete" ng-click="deleteOrder(order)"></span>
+		</div>
+	</div>
+</div>
+</div>
+
+
+<!-- ends container & controller -->
+</div>

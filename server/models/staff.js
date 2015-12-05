@@ -21,6 +21,7 @@ var StaffSchema = new mongoose.Schema({
 	},
   salt: String,
   role: String,
+  admin: Boolean,
   orders: [{type: Schema.ObjectId, ref: 'Order'}],
   dateCreated: {type: Date, default: new Date},
 });

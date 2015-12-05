@@ -12,16 +12,15 @@ myApp.config(function ($routeProvider) {
 	.when('/register',{
 		templateUrl: 'partials/register.html'
 	})
-	.when('/addMenu',{
-		templateUrl: 'partials/addMenu.html'
+	.when('/menu',{
+		templateUrl: 'partials/menu.html'
+	})
+	.when('/kitchen',{
+		templateUrl: 'partials/kitchen.html'
 	})
 
-	.when('/displayMenus',{
-		templateUrl: 'partials/displayMenus.html'
-	})
-
-	.when('/thisMenu/:id',{
-		templateUrl: 'partials/thisMenu.html'
+	.when('/item/:id',{
+		templateUrl: 'partials/item.html'
 	})
 
 	.when('/addOrder',{
@@ -33,15 +32,15 @@ myApp.config(function ($routeProvider) {
 	})
 
 	.when('/orderReceipt/:id',{
-		templateUrl: 'partials/receiptOrder.html'
+		templateUrl: 'partials/receipt.html'
 	})
 
-	.when('/displayOrders',{
-		templateUrl: 'partials/displayOrders.html'
+	.when('/orders',{
+		templateUrl: 'partials/orders.html'
 	})
 
-	.when('/displayOrders/:person',{
-		templateUrl: 'partials/ordersChef.html'
+	.when('/orders/:person',{
+		templateUrl: 'partials/chef.html'
 	})
 
 	.when('/addCustomer',{

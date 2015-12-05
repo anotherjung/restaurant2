@@ -1,0 +1,35 @@
+<div class="container" ng-controller='thisOrderController'>
+
+	<hr>
+
+
+
+ <!-- start form for order -->
+  <div class="row">
+  	<div class="col s12 m12 l12"> 
+	    <h4 class="center-align">Order {{oneOrder.name}}</h4>
+				{{oneOrder.type}}, {{oneOrder.created_date  | date:"MM/dd/yyyy h:mma"}}
+				<br>
+				{{oneOrder._customer.name}}    		
+
+			<ul>
+				<li ng-repeat='item in oneOrder.menu'>{{item.name}} </li>
+			</ul>
+			    Total: ${{oneOrder.total}}
+			    <br>
+			    (+tax): ${{oneOrder.total * 0.85 | number:2 }}
+
+			 	<H5>Tip: </h5>
+			 <p>
+			 	<br> 12%: ${{oneOrder.total * 0.85 * 1.12 | number:2 }}
+			 	<br> 15%: ${{oneOrder.total * 0.85 * 1.15 | number:2 }}
+			 	<br> 20%: ${{oneOrder.total * 0.85 * 1.20 | number:2 }}
+			 </p>
+
+			 <span><a href ng-click='orderPaid(oneOrder)' class="btn grey"><i class=" material-icons">payment</i></a></span>
+
+		    <!--2b declare ng-model-->
+	</div>
+</div>
+
+</div>
